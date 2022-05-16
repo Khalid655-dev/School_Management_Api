@@ -20,10 +20,7 @@ def get_students(db: Session = Depends(get_db), current_admin: int = Depends(oau
 @router.post("/", status_code= status.HTTP_201_CREATED, response_model=schemas.Student)
 def create_students(student: schemas.StudentCreate, db: Session = Depends(get_db), current_admin: int = Depends(oauth2.get_current_admin)):
     
-   ## coursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.published))
-   ## new_post = coursor.fetchone()
-   ## conn.commit()
-     
+
      new_student = models.Student(admin_id=current_admin.id, **student.dict())
      db.add(new_student)
      db.commit()
@@ -33,9 +30,7 @@ def create_students(student: schemas.StudentCreate, db: Session = Depends(get_db
 
 @router.get("/{id}", response_model=schemas.StudentOut)
 def get_student(id: int, db: Session = Depends(get_db), current_admin: int = Depends(oauth2.get_current_admin)):
-   ## coursor.execute("""SELECT * from posts where id = %s """, (str(id)))
-    ##post = coursor.fetchone() 
-    #post = db.query(models.Post).filter(models.Post.id == id).first()
+
 
     student = db.query(models.Student).filter(models.Student.id == id).first()
     if not student:
@@ -46,9 +41,7 @@ def get_student(id: int, db: Session = Depends(get_db), current_admin: int = Dep
 
 @router.delete("/{id}", status_code= status.HTTP_204_NO_CONTENT)
 def delete_student(id: int, db: Session = Depends(get_db), current_admin: int = Depends(oauth2.get_current_admin)):
-    ##coursor.execute("""Delete from posts where id = %s returning *""", (str(id)))
-   ## deleted_post = coursor.fetchone()
-   ## conn.commit()
+
     student_query = db.query(models.Student).filter(models.Student.id == id)
     student= student_query.first()
     
@@ -66,9 +59,7 @@ def delete_student(id: int, db: Session = Depends(get_db), current_admin: int = 
 
 @router.put("/{id}", response_model=schemas.Student)
 def update_student(id: int, updated_student: schemas.StudentCreate, db: Session = Depends(get_db), current_admin: int = Depends(oauth2.get_current_admin)):
-    ##coursor.execute("""update posts SET title = %s, content = %s, published = %s where id = %s RETURNING *""", (post.title, post.content, post.published, str(id)))
-    ##updated_post = coursor.fetchone()
-    ##conn.commit()
+
     student_query = db.query(models.Student).filter(models.Student.id == id)
     student = student_query.first()
 

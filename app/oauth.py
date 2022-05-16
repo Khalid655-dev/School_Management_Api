@@ -8,7 +8,7 @@ from fastapi.security import OAuth2PasswordBearer, oauth2
 from sqlalchemy.orm import Session
 from .config import settings
 
-oauth_scheme = OAuth2PasswordBearer(tokenUrl="login/teacher")
+oauth_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 # SECRET_KEY
 # Algorithm

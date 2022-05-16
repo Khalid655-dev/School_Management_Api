@@ -18,9 +18,7 @@ def get_results(db: Session = Depends(get_db), current_teacher: int = Depends(oa
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Result)
 def create_results(result: schemas.ResultCreate, db: Session = Depends(get_db), current_teacher: int = Depends(oauth.get_current_teacher)):
-    ## coursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.published))
-    ## new_post = coursor.fetchone()
-    ## conn.commit()
+
 
     new_result = models.Result(teacher_id=current_teacher.id, **result.dict())
     db.add(new_result)
@@ -31,9 +29,7 @@ def create_results(result: schemas.ResultCreate, db: Session = Depends(get_db), 
 
 @router.get("/{id}", response_model=schemas.ResultOut)
 def get_result(id: int, db: Session = Depends(get_db), current_teacher: int = Depends(oauth.get_current_teacher)):
-    ## coursor.execute("""SELECT * from posts where id = %s """, (str(id)))
-    ##post = coursor.fetchone()
-    # post = db.query(models.Post).filter(models.Post.id == id).first()
+
 
     result = db.query(models.Result).filter(models.Result.id == id).first()
     if not result:
@@ -44,9 +40,7 @@ def get_result(id: int, db: Session = Depends(get_db), current_teacher: int = De
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_result(id: int, db: Session = Depends(get_db), current_teacher: int = Depends(oauth.get_current_teacher)):
-    ##coursor.execute("""Delete from posts where id = %s returning *""", (str(id)))
-    ## deleted_post = coursor.fetchone()
-    ## conn.commit()
+
     result_query = db.query(models.Result).filter(models.Result.id == id)
     result = result_query.first()
 
@@ -65,9 +59,7 @@ def delete_result(id: int, db: Session = Depends(get_db), current_teacher: int =
 
 @router.put("/{id}", response_model=schemas.Result)
 def update_result(id: int, updated_student: schemas.ResultCreate, db: Session = Depends(get_db), current_teacher: int = Depends(oauth.get_current_teacher)):
-    ##coursor.execute("""update posts SET title = %s, content = %s, published = %s where id = %s RETURNING *""", (post.title, post.content, post.published, str(id)))
-    ##updated_post = coursor.fetchone()
-    ##conn.commit()
+
     result_query = db.query(models.Result).filter(models.Result.id == id)
     result = result_query.first()
 
