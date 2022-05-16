@@ -40,10 +40,18 @@ class Teacher(Base):
     joining_date = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=True)
 
-class Vote(Base):
-    __tablename__ = 'votes'
-    teacher = Column(Integer, ForeignKey("teachers.id", ondelete="CASCADE"), primary_key=True)
-    student_id = Column(Integer, ForeignKey("students.id", ondelete="CASCADE"), primary_key=True)
+class Result(Base):
+    __tablename__ = 'results'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    student_name = Column(String(400), nullable=False)
+    student_roll_no = Column(Integer, nullable=False)
+    student_subject = Column(String(200), nullable=False)
+    student_marks = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=False)
+    teacher_id = Column(Integer, ForeignKey("teachers.id", ondelete="CASCADE"), nullable=False)
+
+    registered_by_teacher = relationship("Teacher")
 
 
 

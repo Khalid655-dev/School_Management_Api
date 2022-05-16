@@ -39,7 +39,7 @@ def get_student(id: int, db: Session = Depends(get_db), current_admin: int = Dep
 
     student = db.query(models.Student).filter(models.Student.id == id).first()
     if not student:
-        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"post with id: {id} was not found")
+        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"student with id: {id} was not found")
 
     return student
 
@@ -53,7 +53,7 @@ def delete_student(id: int, db: Session = Depends(get_db), current_admin: int = 
     student= student_query.first()
     
     if student_query.first == None:
-        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"The post with id: {id} is not found")
+        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"The student with id: {id} is not found")
     
     if student.admin_id != current_admin.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not Authorized to perform the requested action")
@@ -73,7 +73,7 @@ def update_student(id: int, updated_student: schemas.StudentCreate, db: Session 
     student = student_query.first()
 
     if student == None:
-        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"post with id: {id} does not exist")
+        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= f"student with id: {id} does not exist")
 
     if student.admin_id != current_admin.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not Authorized to perform the requested action")

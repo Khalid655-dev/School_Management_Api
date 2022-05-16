@@ -83,8 +83,28 @@ class TeacherOut(BaseModel):
        orm_mode = True
 
 
-class Subject(BaseModel):
-    student_id: int
-    dir: conint(le=1)    
-    
-                
+class Result(BaseModel):
+    id: int
+    student_name: str
+    student_roll_no: str
+    student_subject: str
+    student_marks: int
+    created_at: datetime
+    teacher_id: int
+    registered_by_teacher: TeacherOut
+
+    class Config:
+       orm_mode = True
+
+class ResultOut(Result):
+    pass
+
+    class Config:
+        orm_mode = True
+
+class ResultCreate(BaseModel):
+    student_name: str
+    student_roll_no: int
+    student_subject: str
+    student_marks: int
+    #teacher_id : int

@@ -25,7 +25,7 @@ def get_admin(id: int, db: Session = Depends(get_db)):
     admin = db.query(models.Admin).filter(models.Admin.id == id).first()
 
     if not admin:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id: {id} does not exist")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"admin with id: {id} does not exist")
 
     return admin
 
