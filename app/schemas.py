@@ -107,4 +107,4 @@ class ResultCreate(BaseModel):
     student_roll_no: int
     student_subject: str
     student_marks: int
-    #teacher_id : int
+    teacher_id : int
