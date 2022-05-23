@@ -1,12 +1,13 @@
-from pydantic.errors import JsonError
-from app import schemas, database, models
+from fastapi import Depends, status, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from . import schemas
-from fastapi import Depends, status, HTTPException
-from fastapi.security import OAuth2PasswordBearer, oauth2
 from sqlalchemy.orm import Session
-from .config import settings
+
+import database
+from config import settings
+from auth_token import TokenData
+from models.admins import Admin
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -35,10 +36,10 @@ def verify_access_token(token: str, credentials_exception):
     try:
 
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        id: str = payload.get("admin_id")
-        if id is None:
+        id_: str = payload.get("admin_id")
+        if id_ is None:
             raise credentials_exception
-        token_data = schemas.TokenData(id=id)
+        token_data = TokenData(id=id_)
     except JWTError:
         raise credentials_exception
 
@@ -46,11 +47,13 @@ def verify_access_token(token: str, credentials_exception):
 
 
 def get_current_admin(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
-    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"Could not vaildate credentials", headers={"WWW-Authenticate": "Bearer"})
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail=f"Could not vaildate credentials", headers={"WWW-Authenticate": "Bearer"})
 
     token = verify_access_token(token, credentials_exception)
 
-    admin = db.query(models.Admin).filter(models.Admin.id == token.id).first()
+    admin = db.query(Admin).filter(Admin.id == token.id).first()
     return admin
 
 
