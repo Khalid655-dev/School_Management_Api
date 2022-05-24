@@ -5,9 +5,11 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
 import database
+import utils
 from config import settings
 from auth_token import TokenData
 from models.admins import Admin
+from teacher import *
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -18,6 +20,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
+
+
+class TeacherInDB(TeacherOut):
+    hashed_password: str
 
 
 def create_access_token(data: dict):
@@ -58,6 +64,3 @@ def get_current_admin(token: str = Depends(oauth2_scheme), db: Session = Depends
 
 
 
-
-
-            

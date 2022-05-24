@@ -1,8 +1,7 @@
 from sqlalchemy import Column
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
-from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-from sqlalchemy.sql.sqltypes import TIMESTAMP, Boolean, Integer, String
+from sqlalchemy.sql.sqltypes import DateTime, Integer, String, TIMESTAMP
+
 from database import Base
 
 
@@ -14,7 +13,7 @@ class Teacher(Base):
     email = Column(String(200), nullable=False, unique=True)
     password = Column(String(400), nullable=False)
     specialization = Column(String(400), nullable=True)
-    joining_date = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=True)
+    joining_date = Column(DateTime, nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=True)
 
 

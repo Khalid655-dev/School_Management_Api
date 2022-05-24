@@ -6,6 +6,8 @@ class TeacherSignup(BaseModel):
     name: str
     email: EmailStr
     password: str
+    joining_date: datetime
+    specialization: str
 
 
 class TeacherLogin(BaseModel):

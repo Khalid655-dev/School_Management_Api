@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from datetime import datetime
-from admin.schemas import AdminOut
 
 
 class StudentBase(BaseModel):

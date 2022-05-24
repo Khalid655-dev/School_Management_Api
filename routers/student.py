@@ -1,10 +1,12 @@
-from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from student import StudentOut, StudentSchema, StudentCreate
+
+from student import StudentOut, StudentCreate
 import oauth2
 from database import get_db
 from models.students import Student
+
 
 std_router = APIRouter(prefix="/students", tags=["Students"])
 

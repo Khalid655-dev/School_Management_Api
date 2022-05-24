@@ -1,11 +1,11 @@
-from fastapi import APIRouter, status, HTTPException, Depends, Response
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from database import get_db
 from utils import verify
 import oauth2
-from auth_token.schemas import Token, TokenData
+from auth_token.schemas import Token
 from models import Admin, Teacher
 
 
@@ -38,7 +38,6 @@ def login_teacher(teacher_credentials: OAuth2PasswordRequestForm = Depends(), db
 
     teacher = db.query(Teacher).filter(
         Teacher.email == teacher_credentials.username).first()
-
     if not teacher:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials")

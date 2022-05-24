@@ -1,8 +1,7 @@
 from sqlalchemy import Column
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
-from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-from sqlalchemy.sql.sqltypes import TIMESTAMP, Boolean, Integer, String
+from sqlalchemy.sql.sqltypes import Integer, String, TIMESTAMP
+
 from database import Base
 
 

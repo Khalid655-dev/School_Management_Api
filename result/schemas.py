@@ -11,7 +11,7 @@ class ResultSchema(BaseModel):
     student_marks: int
     created_at: datetime
     teacher_id: int
-    registered_by_teacher: TeacherOut
+    created_by_teacher: TeacherOut
 
     class Config:
         orm_mode = True
