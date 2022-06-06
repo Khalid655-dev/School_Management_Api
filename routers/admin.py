@@ -39,7 +39,7 @@ def create_teacher(teacher: TeacherSignup, db: Session = Depends(get_db),
     hashed_password = utils.hash_(teacher.password)
     teacher.password = hashed_password
 
-    new_teacher = Teacher(**teacher.dict())
+    new_teacher = Teacher(admin_id=current_admin.id, **teacher.dict())
     db.add(new_teacher)
     db.commit()
     db.refresh(new_teacher)

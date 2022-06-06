@@ -16,6 +16,7 @@ class StudentCreate(StudentBase):
 class StudentSchema(StudentBase):
     id: int
     created_at: datetime
+    admin_id: int
 
     class Config:
         orm_mode = True

@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
 import database
-import utils
 from config import settings
 from auth_token import TokenData
 from models.admins import Admin
