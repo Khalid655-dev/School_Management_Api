@@ -2,8 +2,9 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database import Base, engine
+from database import engine
 from routers import admin, auth, result, student
+from models import *
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,8 +24,8 @@ app.add_middleware(
 
 app.include_router(admin.admin_router)
 app.include_router(auth.auth_router)
-app.include_router(result.result_router)
 app.include_router(student.std_router)
+app.include_router(result.result_router)
 
 
 @app.get("/")

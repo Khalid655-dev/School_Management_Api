@@ -56,7 +56,7 @@ def delete_student(id_: int, db: Session = Depends(get_db), current_admin: int =
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@std_router.put("/{id}", response_model=StudentOut)
+@std_router.put("/{id_}", response_model=StudentOut)
 def update_student(id_: int, updated_student: StudentCreate, db: Session = Depends(get_db),
                    current_admin: int = Depends(oauth2.get_current_admin)):
     student_query = db.query(Student).filter(Student.id == id_)
@@ -65,9 +65,9 @@ def update_student(id_: int, updated_student: StudentCreate, db: Session = Depen
     if student is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"student with id: {id_} does not exist")
 
-    if student.admin_id != current_admin.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail="Not Authorized to perform the requested action")
+    #if student.admin_id != current_admin.id:
+        #raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                           # detail="Not Authorized to perform the requested action")
 
     student_query.update(updated_student.dict(), synchronize_session=False)
 
