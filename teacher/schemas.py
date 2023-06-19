@@ -8,7 +8,7 @@ class TeacherSignup(BaseModel):
     password: str
     joining_date: datetime
     specialization: str
-    #admin_id: str
+    # admin_id: str
 
 
 class TeacherLogin(BaseModel):
@@ -24,3 +24,17 @@ class TeacherOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class TeacherResult(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class TeacherResetPassword(BaseModel):
+    password: str
+
