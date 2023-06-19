@@ -12,3 +12,7 @@ class Admin(Base):
     password = Column(String(400), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=False)
 
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+

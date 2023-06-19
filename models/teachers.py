@@ -12,7 +12,7 @@ class Teacher(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(200), nullable=False)
     email = Column(String(200), nullable=False, unique=True)
-    password = Column(String(400), nullable=False)
+    password = Column(String(400), nullable=False, unique=True)
     specialization = Column(String(400), nullable=True)
     joining_date = Column(DateTime, nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=True)

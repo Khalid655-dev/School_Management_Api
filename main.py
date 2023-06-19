@@ -5,12 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 from routers import admin, auth, result, student
 from models import *
+from tasks import add, create_admin
 
 Base.metadata.create_all(bind=engine)
 
-
 app = FastAPI(title="School-Management-System")
-
 
 origins = ["*"]
 
@@ -33,6 +32,9 @@ def root():
     return {"message": "Welcome to my School Management API"}
 
 
+result1 = add.delay(10, 4)
+result1 = create_admin.delay({"email": "zohaib123@example.com", "password": "123"})
+print(result1.id)
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
